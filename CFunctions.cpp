@@ -27,6 +27,7 @@ int CFunctions::curl_func_register( lua_State *luaVM )
 	return 1;
 }
 
+
 int CFunctions::curl_init( lua_State *luaVM )
 {
 	if(luaVM)
@@ -303,4 +304,10 @@ void CFunctions::triggerEvent(const string& eventName, void* userdata, const str
 		args.PushString(arg1.c_str());
 
 	args.Call(gLuaVM, "triggerEvent");
+}
+
+void CFunctions::pr( const char* output )
+{
+	if(MODULE_DEV == 1)
+		pModuleManager->DebugPrintf(luaVM, output);
 }

@@ -48,6 +48,7 @@ public:
 	static void saveLuaData			( lua_State* luaVM );
 	static void addEvent			( lua_State* luaVM, const char* szEventName );
 	static void triggerEvent		( const string& eventName, void* userdata, const string& arg1 = "" );
+	static void pr 					( const char* output );
 
 /*private:
 	static valarray<int> options_str;
