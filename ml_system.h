@@ -46,4 +46,10 @@
 
 using namespace std;
 
+void RegisterCurlOptions(lua_State * luaVM);
+void RegisterCurlAuths(lua_State * luaVM);
+void RegisterCurlInfos(lua_State * luaVM);
+void RegisterCurlCodes(lua_State * luaVM);
+void RegisterCurlGlobals(lua_State * luaVM);
+
 #endif

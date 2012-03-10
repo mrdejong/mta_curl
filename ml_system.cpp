@@ -49,11 +49,11 @@ MTAEXPORT void RegisterFunctions ( lua_State * luaVM )
 		// CFunctions::addEvent(luaVM, "onCurlConnect"); // not yet working
 		// CFunctions::addEvent(luaVM, "onCurlFileCreated"); // not yet working
 
-		RegisterCurlOptions();
-		RegisterCurlAuths();
-		RegisterCurlInfos();
-		RegisterCurlCodes();
-		RegisterCurlGlobals();		
+		RegisterCurlOptions(luaVM);
+		RegisterCurlAuths(luaVM);
+		RegisterCurlInfos(luaVM);
+		RegisterCurlCodes(luaVM);
+		RegisterCurlGlobals(luaVM);		
     }
 }
 
@@ -70,7 +70,7 @@ MTAEXPORT bool ShutdownModule ( void )
     return true;
 }
 
-void RegisterCurlGlobals( )
+void RegisterCurlGlobals( lua_State * luaVM )
 {
 	// curl close policy variables
 	/*CFunctions::registerLuaGlobal(luaVM, "CURLCLOSEPOLICY_LEAST_RECENTLY_USED", CURLCLOSEPOLICY_LEAST_RECENTLY_USED);
@@ -96,14 +96,14 @@ void RegisterCurlGlobals( )
 	CFunctions::createCurlGlobal(luaVM, "CURLPROXY_SOCKS5", CURLPROXY_SOCKS5);*/
 
 	// Curl netrc variables
-	CFunctions::createCurlGlobal(luaVM, "CURL_NETRC_OPTIONAL", CURL_NETRC_OPTIONAL);
-	CFunctions::createCurlGlobal(luaVM, "CURL_NETRC_IGNORED", CURL_NETRC_IGNORED);
-	CFunctions::createCurlGlobal(luaVM, "CURL_NETRC_REQUIRED", CURL_NETRC_REQUIRED);
+	CFunctions::registerLuaGlobal(luaVM, "CURL_NETRC_OPTIONAL", (void*)CURL_NETRC_OPTIONAL);
+	CFunctions::registerLuaGlobal(luaVM, "CURL_NETRC_IGNORED", (void*)CURL_NETRC_IGNORED);
+	CFunctions::registerLuaGlobal(luaVM, "CURL_NETRC_REQUIRED", (void*)CURL_NETRC_REQUIRED);
 
 	// Curl http variables
-	CFunctions::createCurlGlobal(luaVM, "CURL_HTTP_VERSION_NONE", CURL_HTTP_VERSION_NONE);
-	CFunctions::createCurlGlobal(luaVM, "CURL_HTTP_VERSION_1_0", CURL_HTTP_VERSION_1_0);
-	CFunctions::createCurlGlobal(luaVM, "CURL_HTTP_VERSION_1_1", CURL_HTTP_VERSION_1_1);
+	CFunctions::registerLuaGlobal(luaVM, "CURL_HTTP_VERSION_NONE", (void*)CURL_HTTP_VERSION_NONE);
+	CFunctions::registerLuaGlobal(luaVM, "CURL_HTTP_VERSION_1_0", (void*)CURL_HTTP_VERSION_1_0);
+	CFunctions::registerLuaGlobal(luaVM, "CURL_HTTP_VERSION_1_1", (void*)CURL_HTTP_VERSION_1_1);
 
 	// Curl M variables (multi, not implemented yet. Dont publish these variables. It wont work.)
 	/*CFunctions::createCurlGlobal(luaVM, "CURLM_CALL_MULTI_PERFORM", CURLM_CALL_MULTI_PERFORM);
@@ -117,7 +117,7 @@ void RegisterCurlGlobals( )
 	CFunctions::registerLuaGlobal(luaVM, "CURLMSG_DONE", (void*)CURLMSG_DONE);
 }
 
-void RegisterCurlCodes( )
+void RegisterCurlCodes( lua_State * luaVM )
 {
 	// curl E variables (easy package used here)
 	CFunctions::registerLuaGlobal(luaVM, "CURLE_OK", (void*)CURLE_OK);
@@ -187,7 +187,7 @@ void RegisterCurlCodes( )
 	CFunctions::registerLuaGlobal(luaVM, "CURLE_FTP_SSL_FAILED", (void*)CURLE_FTP_SSL_FAILED);
 }
 
-void RegisterCurlInfos( )
+void RegisterCurlInfos( lua_State * luaVM )
 {
 	// curl info variables
 	CFunctions::registerLuaGlobal(luaVM, "CURLINFO_PRIVATE", (void*)CURLINFO_PRIVATE);
@@ -214,7 +214,7 @@ void RegisterCurlInfos( )
 	CFunctions::registerLuaGlobal(luaVM, "CURLINFO_REDIRECT_COUNT", (void*)CURLINFO_REDIRECT_COUNT);
 }
 
-void RegisterCurlAuths( )
+void RegisterCurlAuths( lua_State * luaVM )
 {
 	CFunctions::registerLuaGlobal(luaVM, "CURLAUTH_BASIC", (void*)CURLAUTH_BASIC);
 	CFunctions::registerLuaGlobal(luaVM, "CURLAUTH_DIGEST", (void*)CURLAUTH_DIGEST);
@@ -224,7 +224,7 @@ void RegisterCurlAuths( )
 	CFunctions::registerLuaGlobal(luaVM, "CURLAUTH_ANYSAFE", (void*)CURLAUTH_ANYSAFE);
 }
 
-void RegisterCurlOptions( )
+void RegisterCurlOptions( lua_State * luaVM )
 {
 	// Global variables for curl.
 	CFunctions::registerLuaGlobal(luaVM, "CURLOPT_AUTOREFERER", (void*)CURLOPT_AUTOREFERER);

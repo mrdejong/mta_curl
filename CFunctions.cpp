@@ -309,5 +309,5 @@ void CFunctions::triggerEvent(const string& eventName, void* userdata, const str
 void CFunctions::pr( const char* output )
 {
 	if(MODULE_DEV == 1)
-		pModuleManager->DebugPrintf(luaVM, output);
+		pModuleManager->DebugPrintf(gLuaVM, output);
 }
