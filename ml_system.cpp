@@ -38,7 +38,7 @@ MTAEXPORT void RegisterFunctions ( lua_State * luaVM )
 		pModuleManager->RegisterFunction ( luaVM, "curl_init", CFunctions::curl_init );
 		pModuleManager->RegisterFunction ( luaVM, "curl_close", CFunctions::curl_close );
 		pModuleManager->RegisterFunction ( luaVM, "curl_setopt", CFunctions::curl_setopt );
-		pModuleManager->RegisterFunction ( luaVM, "curl_sleep", CFunctions::curl_func_register );
+		// pModuleManager->RegisterFunction ( luaVM, "curl_sleep", CFunctions::curl_func_register );
 		pModuleManager->RegisterFunction ( luaVM, "curl_cleanup", CFunctions::curl_cleanup );
 		pModuleManager->RegisterFunction ( luaVM, "curl_escape", CFunctions::curl_escape );
 		pModuleManager->RegisterFunction ( luaVM, "curl_perform", CFunctions::curl_perform );

@@ -34,7 +34,6 @@ class Mtacurl;
 class CFunctions
 {
 public:
-	static int curl_func_register	( lua_State* luaVM );
 	static int curl_init			( lua_State* luaVM );
 	static int curl_close			( lua_State* luaVM );
 	static int curl_setopt			( lua_State* luaVM );

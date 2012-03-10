@@ -15,18 +15,6 @@
 lua_State* gLuaVM;
 extern Mtacurls* mtacurls;
 
-int CFunctions::curl_func_register( lua_State *luaVM )
-{
-	if(luaVM)
-	{
-		const char* func = lua_tostring(luaVM, lua_upvalueindex(0));
-		pModuleManager->DebugPrintf(luaVM, "The function '%s' is registered, but not working.", func);
-		lua_pushnil(luaVM);
-	}
-	lua_pushnil(luaVM);
-	return 1;
-}
-
 
 int CFunctions::curl_init( lua_State *luaVM )
 {
