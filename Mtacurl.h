@@ -10,7 +10,7 @@ curl extention class
 #include <string>
 #include "ml_system.h"
 
-#include "include/curl/curl.h"
+#include "curl/curl.h"
 
 class Mtacurl
 {

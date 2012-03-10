@@ -107,8 +107,10 @@ ml_system.o: ml_system.cpp ml_system.h /usr/include/string.h \
  /usr/include/i386-linux-gnu/bits/confname.h /usr/include/getopt.h \
  /usr/include/c++/4.6/i686-linux-gnu/./bits/atomic_word.h \
  /usr/include/c++/4.6/bits/basic_string.tcc CFunctions.h Mtacurl.h \
- include/curl/curl.h include/curl/curlver.h include/curl/curlbuild.h \
- /usr/include/i386-linux-gnu/sys/socket.h \
+ /usr/include/curl/curl.h /usr/include/curl/curlver.h \
+ /usr/include/curl/curlbuild.h \
+ /usr/lib/gcc/i686-linux-gnu/4.6.1/include/stdint.h /usr/include/stdint.h \
+ /usr/include/inttypes.h /usr/include/i386-linux-gnu/sys/socket.h \
  /usr/include/i386-linux-gnu/sys/uio.h \
  /usr/include/i386-linux-gnu/bits/uio.h \
  /usr/include/i386-linux-gnu/bits/socket.h \
@@ -116,7 +118,7 @@ ml_system.o: ml_system.cpp ml_system.h /usr/include/string.h \
  /usr/include/i386-linux-gnu/asm/socket.h \
  /usr/include/asm-generic/socket.h \
  /usr/include/i386-linux-gnu/asm/sockios.h \
- /usr/include/asm-generic/sockios.h include/curl/curlrules.h \
- /usr/include/i386-linux-gnu/sys/time.h include/curl/easy.h \
- include/curl/multi.h include/curl/curl.h include/ILuaModuleManager.h \
- include/lualib.h include/lauxlib.h
+ /usr/include/asm-generic/sockios.h /usr/include/curl/curlrules.h \
+ /usr/include/i386-linux-gnu/sys/time.h /usr/include/curl/easy.h \
+ /usr/include/curl/multi.h /usr/include/curl/curl.h \
+ include/ILuaModuleManager.h include/lualib.h include/lauxlib.h

@@ -22,7 +22,7 @@ extern ILuaModuleManager10 *pModuleManager;
 
 #include "Mtacurls.h"
 
-#include "include/curl/curl.h"
+#include "curl/curl.h"
 
 #define luaL_checktable(L, n) luaL_checktype(L, n, LUA_TTABLE)
 
@@ -42,6 +42,8 @@ public:
 	static int curl_perform			( lua_State* luaVM );
 	static int curl_escape			( lua_State* luaVM );
 	static int curl_strerror		( lua_State* luaVM );
+
+	static int lua_curl_version			( lua_State* luaVM );
 
 	static void registerLuaGlobal	( lua_State* luaVM, const char* name, void* value );
 	static void saveLuaData			( lua_State* luaVM );

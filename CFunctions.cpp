@@ -151,7 +151,7 @@ int CFunctions::curl_escape( lua_State* luaVM )
 				char* escape_url = pMtacurl->escape( url, length );
 
 				lua_pushstring( luaVM, escape_url );
-				curl_free(escape_url);
+				// curl_free(escape_url);
 				return 1;
 			}
 		}
@@ -258,6 +258,28 @@ int CFunctions::curl_strerror( lua_State* luaVM )
 	return 1;
 }
 
+/**
+	CFunctions lua_curl_version ( lua_State luaVM )
+	Push out a version string of libcurl
+
+	@lua string curl_version( void );
+*/
+int CFunctions::lua_curl_version( lua_State* luaVM )
+{
+	if(luaVM)
+	{
+		lua_pushstring( luaVM, curl_version() );
+		return 1;
+	}
+
+	return 0;
+}
+
+/**
+	Register a lua global.
+
+	This is used internal.
+*/
 void CFunctions::registerLuaGlobal( lua_State* luaVM, const char* name, void* value )
 {
 	lua_pushlightuserdata(luaVM, value);

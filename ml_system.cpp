@@ -45,6 +45,8 @@ MTAEXPORT void RegisterFunctions ( lua_State * luaVM )
 		// pModuleManager->RegisterFunction ( luaVM, "curl_send", CFunctions::curl_send );
 		pModuleManager->RegisterFunction ( luaVM, "curl_strerror", CFunctions::curl_strerror );
 
+		pModuleManager->RegisterFunction ( luaVM, "curl_version", CFunctions::lua_curl_version );
+
 		// CFunctions::addEvent(luaVM, "onCurlDataRecieve");
 		// CFunctions::addEvent(luaVM, "onCurlConnect"); // not yet working
 		// CFunctions::addEvent(luaVM, "onCurlFileCreated"); // not yet working

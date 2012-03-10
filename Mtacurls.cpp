@@ -2,16 +2,32 @@
 #include "Mtacurl.h"
 #include "include/curl/curl.h"
 
+/**
+	Initialize the class.
+
+	This function initializes the global curl.
+*/
 Mtacurls::Mtacurls( void )
 {
 	curl_global_init(CURL_GLOBAL_ALL);
 }
 
+/**
+	Destruct this class, and cleanup curl.
+*/
 Mtacurls::~Mtacurls( void )
 {
 	curl_global_cleanup();
 }
 
+/**
+	Mtacurl* Mtacurls::Create( lua_State* luaVM, const char* url, size_t length )
+
+	Create a new Mtacurl object.
+	Push it into the list.
+
+	Returns an Mtacurl object on success, null otherwise.
+*/
 Mtacurl* Mtacurls::Create( lua_State* luaVM, const char* url, size_t length )
 {
 	Mtacurl* pMtacurl;
@@ -31,6 +47,13 @@ Mtacurl* Mtacurls::Create( lua_State* luaVM, const char* url, size_t length )
 	return NULL;
 }
 
+/**
+	Mtacurl* Mtacurls::Get( void* pUserData )
+
+	Find the Mtacurl object in the list.
+
+	Returns an Mtacurl object on success, null otherwise
+*/
 Mtacurl* Mtacurls::Get( void* pUserData )
 {
 	for ( vector < Mtacurl* >::iterator iter = mtacurls.begin( ); iter != mtacurls.end( ); ++ iter )
@@ -39,6 +62,15 @@ Mtacurl* Mtacurls::Get( void* pUserData )
 	return NULL;
 }
 
+/**
+	Mtacurls::DoPulse
+
+	This function is called on each server pulse.
+	
+	Checks if an Mtacurl object is waiting for destruction.
+	If so, destruct the object and erase it from the list.
+	If not, call DoPulse on the Mtacurl object.
+*/
 void Mtacurls::DoPulse( )
 {
 	unsigned int i = 0;
