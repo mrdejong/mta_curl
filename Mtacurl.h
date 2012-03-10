@@ -27,6 +27,7 @@ public:
 	CURLcode setopt_boolean			( CURLoption option, bool val );
 	CURLcode setopt_number			( CURLoption option, int val );
 	CURLcode setopt_string			( CURLoption option, const char* val );
+	CURLcode pause					( int bitmask );
 	CURLcode perform				( void );
 	CURLcode send					( void );
 

@@ -42,10 +42,12 @@ public:
 	static int curl_perform			( lua_State* luaVM );
 	static int curl_escape			( lua_State* luaVM );
 	static int curl_strerror		( lua_State* luaVM );
+	static int curl_pause			( lua_State* luaVM );
 
 	static int lua_curl_version			( lua_State* luaVM );
 
 	static void registerLuaGlobal	( lua_State* luaVM, const char* name, void* value );
+	static void registerIntLuaGlobal ( lua_State* luaVM, const char* name, int value );
 	static void saveLuaData			( lua_State* luaVM );
 	static void addEvent			( lua_State* luaVM, const char* szEventName );
 	static void triggerEvent		( const string& eventName, void* userdata, const string& arg1 = "" );

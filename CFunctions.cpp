@@ -259,6 +259,40 @@ int CFunctions::curl_strerror( lua_State* luaVM )
 }
 
 /**
+	CFunctions curl_pause(lua_State luaVM)
+
+	This will pause curl, you can use as the second argument:
+		CURLPAUSE_RECV 		- Pause recieving
+		CURLPAUSE_SEND		- Pause sending
+		CURLPAUSE_ALL		- Pause all
+		CURLPAUSE_CONT		- Start all
+
+	The first argument is the curl handler.
+
+	@lua curl_pause( CURL handler, int bitmask );
+*/
+int CFunctions::curl_pause(lua_State* luaVM)
+{
+	if(luaVM)
+	{
+		if( lua_type(luaVM, 1) == LUA_TLIGHTUSERDATA &&
+			lua_type(luaVM, 2) == LUA_TNUMBER)
+		{
+			Mtacurl* pMtacurl = mtacurls->Get( lua_touserdata(luaVM, 1));
+
+			if( pMtacurl != NULL) 
+			{
+				CURLcode code = pMtacurl->pause(lua_tonumber(luaVM, 2));
+				lua_pushlightuserdata(luaVM, (void*)code);
+				return 1;
+			}
+		}
+	}
+	lua_pushnil(luaVM);
+	return 1;
+}
+
+/**
 	CFunctions lua_curl_version ( lua_State luaVM )
 	Push out a version string of libcurl
 
@@ -283,6 +317,12 @@ int CFunctions::lua_curl_version( lua_State* luaVM )
 void CFunctions::registerLuaGlobal( lua_State* luaVM, const char* name, void* value )
 {
 	lua_pushlightuserdata(luaVM, value);
+	lua_setglobal(luaVM, name);
+}
+
+void CFunctions::registerIntLuaGlobal ( lua_State* luaVM, const char* name, int value )
+{
+	lua_pushnumber( luaVM, value );
 	lua_setglobal(luaVM, name);
 }
 

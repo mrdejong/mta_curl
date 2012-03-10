@@ -38,7 +38,7 @@ MTAEXPORT void RegisterFunctions ( lua_State * luaVM )
 		pModuleManager->RegisterFunction ( luaVM, "curl_init", CFunctions::curl_init );
 		pModuleManager->RegisterFunction ( luaVM, "curl_close", CFunctions::curl_close );
 		pModuleManager->RegisterFunction ( luaVM, "curl_setopt", CFunctions::curl_setopt );
-		// pModuleManager->RegisterFunction ( luaVM, "curl_sleep", CFunctions::curl_func_register );
+		pModuleManager->RegisterFunction ( luaVM, "curl_pause", CFunctions::curl_pause );
 		pModuleManager->RegisterFunction ( luaVM, "curl_cleanup", CFunctions::curl_cleanup );
 		pModuleManager->RegisterFunction ( luaVM, "curl_escape", CFunctions::curl_escape );
 		pModuleManager->RegisterFunction ( luaVM, "curl_perform", CFunctions::curl_perform );
@@ -117,6 +117,12 @@ void RegisterCurlGlobals( lua_State * luaVM )
 
 	// Curl message variable
 	CFunctions::registerLuaGlobal(luaVM, "CURLMSG_DONE", (void*)CURLMSG_DONE);
+
+	// Register CURLPAUSE handlers
+	CFunctions::registerIntLuaGlobal(luaVM, "CURLPAUSE_RECV", CURLPAUSE_RECV);
+	CFunctions::registerIntLuaGlobal(luaVM, "CURLPAUSE_SEND", CURLPAUSE_SEND);
+	CFunctions::registerIntLuaGlobal(luaVM, "CURLPAUSE_ALL", CURLPAUSE_ALL);
+	CFunctions::registerIntLuaGlobal(luaVM, "CURLPAUSE_CONT", CURLPAUSE_CONT);
 }
 
 void RegisterCurlCodes( lua_State * luaVM )

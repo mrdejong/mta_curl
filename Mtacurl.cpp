@@ -95,6 +95,11 @@ CURLcode Mtacurl::perform( void )
 	return curl_easy_perform( m_pCurl );
 }
 
+CURLcode Mtacurl::pause( int bitmask )
+{
+	return curl_easy_pause(m_pCurl, bitmask);
+}
+
 const void* Mtacurl::getResult( void )
 {
 	return m_pBuffer;
