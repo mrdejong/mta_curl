@@ -28,7 +28,7 @@ Mtacurls::~Mtacurls( void )
 
 	Returns an Mtacurl object on success, null otherwise.
 */
-Mtacurl* Mtacurls::Create( lua_State* luaVM, const char* url, size_t length )
+Mtacurl* Mtacurls::Create( lua_State* luaVM, const char* url )
 {
 	Mtacurl* pMtacurl;
 
@@ -36,7 +36,7 @@ Mtacurl* Mtacurls::Create( lua_State* luaVM, const char* url, size_t length )
 		pMtacurl = new Mtacurl(luaVM);
 	}
 	else {
-		pMtacurl = new Mtacurl(luaVM, url, length);
+		pMtacurl = new Mtacurl(luaVM, url);
 	}
 
 	if(pMtacurl)

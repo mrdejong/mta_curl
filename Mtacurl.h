@@ -18,7 +18,7 @@ friend class Mtacurls;
 public:
 			Mtacurl					( lua_State *luaVM );
 private:
-			Mtacurl					( lua_State *luaVM, const char* url, size_t length );
+			Mtacurl					( lua_State *luaVM, const char* url );
 protected:
 			~Mtacurl				( void );
 	void	DoPulse					( void );

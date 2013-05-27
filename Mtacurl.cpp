@@ -56,15 +56,14 @@ Mtacurl::Mtacurl( lua_State *luaVM )
 	m_bAwaitingDestruction	= false;
 }
 
-Mtacurl::Mtacurl( lua_State *luaVM, const char* url, size_t length )
+Mtacurl::Mtacurl( lua_State *luaVM, const char* url )
 {
 	m_pUserData				= lua_newuserdata(luaVM, 128);
 	m_pCurl					= curl_easy_init();
-	char* host				= curl_easy_escape(m_pCurl, url, length);
 	m_pConnected			= true;
 	m_bAwaitingDestruction	= false;
 
-	curl_easy_setopt(m_pCurl, CURLOPT_URL, host);
+	curl_easy_setopt(m_pCurl, CURLOPT_URL, url);
 }
 
 Mtacurl::~Mtacurl( )

@@ -22,10 +22,8 @@ int CFunctions::curl_init( lua_State *luaVM )
 	{
 		if( lua_type( luaVM, 1 ) == LUA_TSTRING )
 		{
-			size_t length;
-			const char* url = luaL_checklstring(luaVM, 1, &length);
 
-			Mtacurl* pMtacurl = mtacurls->Create( luaVM, url, length );
+			Mtacurl* pMtacurl = mtacurls->Create( luaVM, lua_tostring(luaVM, 1) );
 			if( pMtacurl )
 			{
 				lua_pushlightuserdata( luaVM, pMtacurl->GetUserData());
@@ -33,7 +31,7 @@ int CFunctions::curl_init( lua_State *luaVM )
 			}
 		}
 		else {
-			Mtacurl* pMtacurl = mtacurls->Create( luaVM, NULL, 0 );
+			Mtacurl* pMtacurl = mtacurls->Create( luaVM, NULL );
 			if( pMtacurl )
 			{
 				lua_pushlightuserdata(luaVM, pMtacurl->GetUserData());
