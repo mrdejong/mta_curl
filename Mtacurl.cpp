@@ -6,43 +6,15 @@
 
 #include "Mtacurl.h"
 
-/**
-Some handler functions...
-*/
-static int l_easy_headerhandler(void *ptr, size_t size, size_t nmemb, void *stream)
+int write_data(char *data, size_t size, size_t nmemb, string* buffer)
 {
-	lua_State* L = (lua_State*)stream;
-	lua_getfield(L, -1, "headerfunction");
-	lua_pushlstring(L, (char*) ptr, nmemb * size);
-	lua_call(L, 1, 0);
-	return nmemb*size;
-}
-
-static int l_easy_writehandler(void *ptr, size_t size, size_t nmemb, void *stream)
-{
-	lua_State* L = (lua_State*)stream;
-
-	lua_getfield(L, -1, "writefunction");
-	lua_pushlstring(L, (char*)ptr, nmemb * size);
-	lua_call(L, 1, 0);
-	return nmemb*size;
-}
-
-static int l_easy_readhandler(void *ptr, size_t size, size_t nmemb, void *stream)
-{
-	lua_State* L = (lua_State*)stream;
-	size_t n;
-	int old_top = lua_gettop(L);
-	const char *str;
-	lua_getfield(L, -1, "readfunction");
-	lua_pushinteger(L, nmemb * size);
-	lua_call(L, 1, 1);
-	str = lua_tolstring(L, -1, &n);
-	if (n > nmemb*size)
-		luaL_error(L, "String returned from readfunction is too long (%d)", n);
-	memcpy(ptr, str, n);
-	lua_settop(L, old_top);
-	return n;
+	int result = 0;
+	if(buffer != NULL)
+	{
+		buffer->append(data, size * nmemb);
+		result = size * nmemb;
+	}
+	return result;
 }
 
 /**
@@ -91,7 +63,15 @@ CURLcode Mtacurl::setopt_string( CURLoption option, const char* val)
 
 CURLcode Mtacurl::perform( void )
 {
+	curl_easy_setopt( m_pCurl, CURLOPT_WRITEFUNCTION, write_data );
+	curl_easy_setopt( m_pCurl, CURLOPT_WRITEDATA, &response );
+
 	return curl_easy_perform( m_pCurl );
+}
+
+void Mtacurl::clearMemp( void )
+{
+	response.clear();
 }
 
 CURLcode Mtacurl::pause( int bitmask )
@@ -99,74 +79,9 @@ CURLcode Mtacurl::pause( int bitmask )
 	return curl_easy_pause(m_pCurl, bitmask);
 }
 
-const void* Mtacurl::getResult( void )
+const char* Mtacurl::getResult( void )
 {
-	return m_pBuffer;
-}
-
-/**
-@remove
-*/
-CURLcode Mtacurl::send( void )
-{
-	m_pBuflen = sizeof(m_pBuffer);
-	return curl_easy_send(m_pCurl, m_pBuffer, m_pBuflen, m_pBufsize);
-}
-
-int Mtacurl::setup_writefunction( lua_State *L ) 
-{
-	CURLcode iDataSetup = curl_easy_setopt(m_pCurl, CURLOPT_WRITEDATA, L);
-	if(iDataSetup != CURLE_OK)
-		luaL_error(L, "%s", strerror( iDataSetup ));
-
-	CURLcode iFuncSetup = curl_easy_setopt(m_pCurl, CURLOPT_WRITEFUNCTION, l_easy_writehandler);
-	if(iFuncSetup != CURLE_OK)
-		luaL_error(L, "%s", strerror( iFuncSetup ));
-	return 0;
-}
-
-int Mtacurl::setup_readfunction( lua_State *L )
-{
-	CURLcode iDataSetup = curl_easy_setopt(m_pCurl, CURLOPT_READDATA, L);
-	if(iDataSetup != CURLE_OK)
-		luaL_error(L, "%s", strerror( iDataSetup ));
-
-	CURLcode iFuncSetup = curl_easy_setopt(m_pCurl, CURLOPT_READFUNCTION, l_easy_readhandler);
-	if(iFuncSetup != CURLE_OK)
-		luaL_error(L, "%s", strerror( iFuncSetup ));
-	return 0;
-}
-
-int Mtacurl::setup_headerfunction( lua_State *L )
-{
-	CURLcode iFuncSetup = curl_easy_setopt(m_pCurl, CURLOPT_HEADERFUNCTION, l_easy_headerhandler);
-	if(iFuncSetup != CURLE_OK)
-		luaL_error(L, "%s", strerror( iFuncSetup ));
-	return 0;
-}
-
-int Mtacurl::clear_writefunction( lua_State *L )
-{
-	CURLcode result = curl_easy_setopt(m_pCurl, CURLOPT_WRITEFUNCTION, NULL);
-	if(result != CURLE_OK)
-		luaL_error(L, "%s", strerror( result ));
-	return 0;
-}
-
-int Mtacurl::clear_readfunction( lua_State *L )
-{
-	CURLcode result = curl_easy_setopt(m_pCurl, CURLOPT_READFUNCTION, NULL);
-	if(result != CURLE_OK)
-		luaL_error(L, "%s", strerror( result ));
-	return 0;
-}
-
-int Mtacurl::clear_headerfunction( lua_State *L )
-{
-	CURLcode result = curl_easy_setopt(m_pCurl, CURLOPT_HEADERFUNCTION, NULL);
-	if(result != CURLE_OK)
-		luaL_error(L, "%s", strerror( result ));
-	return 0;
+	return response.c_str();
 }
 
 void Mtacurl::cleanup( void )
