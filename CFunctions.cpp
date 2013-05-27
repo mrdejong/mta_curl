@@ -169,41 +169,14 @@ int CFunctions::curl_perform( lua_State* luaVM )
 
 			if( pMtacurl != NULL )
 			{
-
-				luaL_opt(luaVM, luaL_checktable, 2, lua_newtable(luaVM));
-
-
-				lua_getfield(luaVM, 2, "writefunction");
-				int writefunction = lua_isfunction(luaVM, -1)?1:0;
-				if (writefunction)
-					pMtacurl->setup_writefunction(luaVM);
-				lua_pop(luaVM, 1);
-
-				lua_getfield(luaVM, 2, "readfunction");
-				int readfunction = lua_isfunction(luaVM, -1)?1:0;
-				if (readfunction)
-					pMtacurl->setup_readfunction(luaVM);
-				lua_pop(luaVM, 1);
-
-				lua_getfield(luaVM, 2, "headerfunction");
-				int headerfunction = lua_isfunction(luaVM, -1)?1:0;
-				if (headerfunction)
-					pMtacurl->setup_headerfunction(luaVM);
-				lua_pop(luaVM, 1);
-
-
 				CURLcode code = pMtacurl->perform();
 
-				if(writefunction)
-					pMtacurl->clear_writefunction( luaVM );
-				if(readfunction)
-					pMtacurl->clear_readfunction( luaVM );
-				if(headerfunction)
-					pMtacurl->clear_headerfunction( luaVM );
-
 				lua_pushlightuserdata(luaVM, (void*)code);
-				// lua_pushstring(luaVM, (const char*)pMtacurl->getResult());
-				return 1;
+				lua_pushstring(luaVM, pMtacurl->getResult());
+
+				pMtacurl->clearMemp();
+
+				return 2;
 			}
 		}
 	}
@@ -222,9 +195,9 @@ int CFunctions::curl_send( lua_State* luaVM )
 
 			if( pMtacurl != NULL )
 			{
-				CURLcode code = pMtacurl->send();
+				//CURLcode code = pMtacurl->send();
 
-				lua_pushlightuserdata(luaVM, (void*)code);
+				//lua_pushlightuserdata(luaVM, (void*)code);
 				return 1;
 			}
 		}
