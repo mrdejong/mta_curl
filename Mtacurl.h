@@ -37,6 +37,10 @@ public:
 	CURLcode pause					( int bitmask );
 	CURLcode perform				( void );
 
+	CURLSHcode share_setopt			( CURLSHoption option, bool val );
+	CURLSHcode share_setopt			( CURLSHoption option, int val );
+	CURLSHcode share_setopt			( CURLSHoption option, const char* val );
+
 	void cleanup					( void );
 	char *escape					( const char* url, size_t length );
 	const char* strerror			( CURLcode error );
@@ -56,6 +60,8 @@ private:
 	string			response;
 
 	CURLcode		m_pLatestCode;
+
+	CURLSH			*m_pCurlShare = NULL;
 };
 
 #endif

@@ -3,6 +3,7 @@
 
 #include <string>
 #include "ml_system.h"
+#include "Mtacurl.h"
 
 class Mtacurl;
 class Mtacurls

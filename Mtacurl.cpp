@@ -69,6 +69,33 @@ CURLcode Mtacurl::perform( void )
 	return curl_easy_perform( m_pCurl );
 }
 
+/**
+ * Share interface
+ */
+CURLSHcode Mtacurl::share_setopt( CURLSHoption option, bool val )
+{
+	if ( !m_pCurlShare )
+		m_pCurlShare = curl_share_init();
+
+	return curl_share_setopt( m_pCurlShare, option, val );
+}
+
+CURLSHcode Mtacurl::share_setopt( CURLSHoption option, int val )
+{
+	if ( !m_pCurlShare )
+		m_pCurlShare = curl_share_init();
+
+	return curl_share_setopt( m_pCurlShare, option, val );
+}
+
+CURLSHcode Mtacurl::share_setopt( CURLSHoption option, const char *val )
+{
+	if ( !m_pCurlShare )
+		m_pCurlShare = curl_share_init();
+
+	return curl_share_setopt( m_pCurlShare, option, val );
+}
+
 void Mtacurl::clearMemp( void )
 {
 	response.clear();

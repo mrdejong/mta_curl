@@ -130,6 +130,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CFunctions.cpp" />
+    <ClCompile Include="CurlCollection.cpp" />
+    <ClCompile Include="CurlEasy.cpp" />
+    <ClCompile Include="CurlShare.cpp" />
     <ClCompile Include="ml_system.cpp" />
     <ClCompile Include="extra\CLuaArgument.cpp" />
     <ClCompile Include="extra\CLuaArguments.cpp" />
@@ -139,6 +142,9 @@
   <ItemGroup>
     <ClInclude Include="CFunctions.h" />
     <ClInclude Include="Common.h" />
+    <ClInclude Include="CurlCollection.h" />
+    <ClInclude Include="CurlEasy.h" />
+    <ClInclude Include="CurlShare.h" />
     <ClInclude Include="include\curl\curl.h" />
     <ClInclude Include="include\curl\curlbuild.h" />
     <ClInclude Include="include\curl\curlrules.h" />

@@ -1,5 +1,4 @@
 #include "Mtacurls.h"
-#include "Mtacurl.h"
 #include "include/curl/curl.h"
 
 /**
