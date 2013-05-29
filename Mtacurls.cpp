@@ -17,6 +17,7 @@ Mtacurls::Mtacurls( void )
 */
 Mtacurls::~Mtacurls( void )
 {
+	DeleteAll();
 	curl_global_cleanup();
 }
 
@@ -63,6 +64,30 @@ Mtacurl* Mtacurls::Get( void* pUserData )
 }
 
 /**
+	void Mtacurls::Delete( Mtacurl* pMtaculr )
+	
+	Delete a Mtacurl pointer.
+*/
+void Mtacurls::Delete( Mtacurl* pMtacurl )
+{
+	pMtacurl->MakeAwaitDestruction( );
+}
+
+void Mtacurls::DeleteAll( void )
+{
+	unsigned int i = 0;
+	while( i < mtacurls.size() )
+	{
+		Mtacurl* pMtacurl = mtacurls[i];
+		if(!pMtacurl->IsAwaitingDestruction())
+		{
+			pMtacurl->MakeAwaitDestruction();
+		}
+	}
+
+}
+
+/**
 	Mtacurls::DoPulse
 
 	This function is called on each server pulse.
@@ -79,15 +104,10 @@ void Mtacurls::DoPulse( )
 		Mtacurl* pMtacurl = mtacurls[i];
 		if ( pMtacurl )
 		{
-			if(!pMtacurl->IsAwaitingDestruction())
-			{
-				pMtacurl->DoPulse( );
-				++ i;
-			}
-			else
+			if(pMtacurl->IsAwaitingDestruction())
 			{
 				mtacurls.erase( mtacurls.begin() + i );
-				delete pMtacurl;
+				SAFE_DELETE(pMtacurl)
 			}
 		}
 		else

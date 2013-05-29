@@ -35,21 +35,27 @@ MTAEXPORT void RegisterFunctions ( lua_State * luaVM )
     {
 		CFunctions::saveLuaData(luaVM);
 
+		// Old style, this will get deleted in 1.4
 		pModuleManager->RegisterFunction ( luaVM, "curl_init", CFunctions::curl_init );
 		pModuleManager->RegisterFunction ( luaVM, "curl_close", CFunctions::curl_close );
 		pModuleManager->RegisterFunction ( luaVM, "curl_setopt", CFunctions::curl_setopt );
 		pModuleManager->RegisterFunction ( luaVM, "curl_pause", CFunctions::curl_pause );
 		pModuleManager->RegisterFunction ( luaVM, "curl_cleanup", CFunctions::curl_cleanup );
-		pModuleManager->RegisterFunction ( luaVM, "curl_escape", CFunctions::curl_escape );
+		pModuleManager->RegisterFunction ( luaVM, "curl_escape", CFunctions::curl_escape ); // Deprecate?
 		pModuleManager->RegisterFunction ( luaVM, "curl_perform", CFunctions::curl_perform );
-		// pModuleManager->RegisterFunction ( luaVM, "curl_send", CFunctions::curl_send );
 		pModuleManager->RegisterFunction ( luaVM, "curl_strerror", CFunctions::curl_strerror );
-
 		pModuleManager->RegisterFunction ( luaVM, "curl_version", CFunctions::lua_curl_version );
 
-		// CFunctions::addEvent(luaVM, "onCurlDataRecieve");
-		// CFunctions::addEvent(luaVM, "onCurlConnect"); // not yet working
-		// CFunctions::addEvent(luaVM, "onCurlFileCreated"); // not yet working
+		// Register the new style
+		pModuleManager->RegisterFunction ( luaVM, "curlInit", CFunctions::curl_init );
+		pModuleManager->RegisterFunction ( luaVM, "curlClose", CFunctions::curl_close );
+		pModuleManager->RegisterFunction ( luaVM, "curlSetopt", CFunctions::curl_setopt );
+		pModuleManager->RegisterFunction ( luaVM, "curlPost", CFunctions::curl_pause );
+		pModuleManager->RegisterFunction ( luaVM, "curlCleanup", CFunctions::curl_cleanup );
+		pModuleManager->RegisterFunction ( luaVM, "curlEscape", CFunctions::curl_escape ); // Deprecate?
+		pModuleManager->RegisterFunction ( luaVM, "curlPerform", CFunctions::curl_perform );
+		pModuleManager->RegisterFunction ( luaVM, "curlStrerror", CFunctions::curl_strerror );
+		pModuleManager->RegisterFunction ( luaVM, "curlVersion", CFunctions::lua_curl_version );		
 
 		RegisterCurlOptions(luaVM);
 		RegisterCurlAuths(luaVM);
@@ -72,6 +78,11 @@ MTAEXPORT bool ShutdownModule ( void )
     return true;
 }
 
+/**
+ * Register curl globals into the lua vm.
+ *
+ * If there is an easier way of doing this, please clone the repo!
+ */
 void RegisterCurlGlobals( lua_State * luaVM )
 {
 	// curl close policy variables

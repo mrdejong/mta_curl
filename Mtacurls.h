@@ -13,7 +13,8 @@ public:
 
 	Mtacurl*		Create( lua_State* luaVM, const char* url );
 	Mtacurl*		Get( void* pUserData );
-	bool			Delete( Mtacurl* pMtacurl );
+	void			Delete( Mtacurl* pMtacurl );
+	void			DeleteAll( );
 	
 	void			DoPulse( );
 

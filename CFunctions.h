@@ -29,6 +29,8 @@ extern ILuaModuleManager10 *pModuleManager;
 #define LUACURL_OPTIONP_UPVALUE(L, INDEX) ((CURLoption *) lua_touserdata(L, lua_upvalueindex(INDEX)))
 #define LUACURL_CODEP_UPVALUE(L, INDEX) ((CURLcode *) lua_touserdata(L, lua_upvalueindex(INDEX)))
 
+#define TRANSLATE_STRING_CURLOPTION(S) #S
+
 class Mtacurl;
 
 class CFunctions
@@ -38,7 +40,6 @@ public:
 	static int curl_close			( lua_State* luaVM );
 	static int curl_setopt			( lua_State* luaVM );
 	static int curl_cleanup			( lua_State* luaVM );
-	static int curl_send			( lua_State* luaVM );
 	static int curl_perform			( lua_State* luaVM );
 	static int curl_escape			( lua_State* luaVM );
 	static int curl_strerror		( lua_State* luaVM );
@@ -52,15 +53,5 @@ public:
 	static void addEvent			( lua_State* luaVM, const char* szEventName );
 	static void triggerEvent		( const string& eventName, void* userdata, const string& arg1 = "" );
 	static void pr 					( const char* output );
-
-/*private:
-	static valarray<int> options_str;
-	static valarray<CURLoption> options_opt;
-
-	static valarray<int> code_str;
-	static valarray<CURLcode> code_opt;
-
-	static valarray<int> info_str;
-	static valarray<CURLINFO> info_opt;*/
 };
 #endif

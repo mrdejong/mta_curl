@@ -20,6 +20,7 @@
 	// Disable the next two warnings. Till i find a good solution for it.
 	#pragma warning (disable : 4800) // DISABLE: forcing value to bool 'true' or 'false' (lua_toboolean)
 	#pragma warning (disable : 4244) // DISABLE: Conversion from 'lua_Number' to 'int'
+	#pragma warning (disable : 4204) // DISABLE: I don't use debug in anyway
 #endif
 
 // Function for making sure a pointer has a value before deleting it; possibly prevents crashes
@@ -27,8 +28,8 @@
 
 #define MODULE_NAME         "Curl module"
 #define MODULE_AUTHOR       "Alexander de Jong (AKA mrdejong)"
-#define MODULE_VERSION      1.2f
-#define MODULE_DEV			0
+#define MODULE_VERSION      1.3f
+#define MODULE_DEV			1
 
 #ifdef WIN32
     #define WIN32_MEAN_AND_LEAN

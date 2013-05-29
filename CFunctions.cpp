@@ -171,6 +171,7 @@ int CFunctions::curl_perform( lua_State* luaVM )
 			{
 				CURLcode code = pMtacurl->perform();
 
+				// What if the call went wrong? FIX
 				lua_pushlightuserdata(luaVM, (void*)code);
 				lua_pushstring(luaVM, pMtacurl->getResult());
 
@@ -185,28 +186,13 @@ int CFunctions::curl_perform( lua_State* luaVM )
 	return 1;
 }
 
-int CFunctions::curl_send( lua_State* luaVM )
-{
-	if( luaVM )
-	{
-		if( lua_type( luaVM, 1 ) == LUA_TLIGHTUSERDATA )
-		{
-			Mtacurl* pMtacurl = mtacurls->Get( lua_touserdata( luaVM, 1 ) );
+/**
+	CFunctions curl_strerror(lua_State luaVM)
 
-			if( pMtacurl != NULL )
-			{
-				//CURLcode code = pMtacurl->send();
+	This will output the error string and not the number
 
-				//lua_pushlightuserdata(luaVM, (void*)code);
-				return 1;
-			}
-		}
-	}
-
-	lua_pushboolean( luaVM, false );
-	return 1;
-}
-
+	@lua curlStrerror( CURL handler, CURLcode code );
+*/
 int CFunctions::curl_strerror( lua_State* luaVM )
 {
 	if( luaVM )
@@ -240,7 +226,7 @@ int CFunctions::curl_strerror( lua_State* luaVM )
 
 	The first argument is the curl handler.
 
-	@lua curl_pause( CURL handler, int bitmask );
+	@lua curlPause( CURL handler, int bitmask );
 */
 int CFunctions::curl_pause(lua_State* luaVM)
 {
@@ -267,7 +253,7 @@ int CFunctions::curl_pause(lua_State* luaVM)
 	CFunctions lua_curl_version ( lua_State luaVM )
 	Push out a version string of libcurl
 
-	@lua string curl_version( void );
+	@lua string curlVersion( void );
 */
 int CFunctions::lua_curl_version( lua_State* luaVM )
 {
