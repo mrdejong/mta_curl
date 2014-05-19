@@ -291,10 +291,10 @@ void RegisterCurlOptions( lua_State * luaVM )
 	CFunctions::registerLuaGlobal(luaVM, "CURLOPT_MAXCONNECTS", (void*)CURLOPT_MAXCONNECTS);
 	CFunctions::registerLuaGlobal(luaVM, "CURLOPT_MAXREDIRS", (void*)CURLOPT_MAXREDIRS);
 	CFunctions::registerLuaGlobal(luaVM, "CURLOPT_PORT", (void*)CURLOPT_PORT);
-	CFunctions::registerLuaGlobal(luaVM, "CURLOPT_PROTOCOLS", (void*)CURLOPT_PROTOCOLS);
+	//CFunctions::registerLuaGlobal(luaVM, "CURLOPT_PROTOCOLS", (void*)CURLOPT_PROTOCOLS);
 	CFunctions::registerLuaGlobal(luaVM, "CURLOPT_PROXYPORT", (void*)CURLOPT_PROXYPORT);
 	CFunctions::registerLuaGlobal(luaVM, "CURLOPT_PROXYTYPE", (void*)CURLOPT_PROXYTYPE);
-	CFunctions::registerLuaGlobal(luaVM, "CURLOPT_REDIR_PROTOCOLS", (void*)CURLOPT_REDIR_PROTOCOLS);
+	//CFunctions::registerLuaGlobal(luaVM, "CURLOPT_REDIR_PROTOCOLS", (void*)CURLOPT_REDIR_PROTOCOLS);
 	CFunctions::registerLuaGlobal(luaVM, "CURLOPT_RESUME_FROM", (void*)CURLOPT_RESUME_FROM);
 	CFunctions::registerLuaGlobal(luaVM, "CURLOPT_SSL_VERIFYHOST", (void*)CURLOPT_SSL_VERIFYHOST);
 	CFunctions::registerLuaGlobal(luaVM, "CURLOPT_SSLVERSION", (void*)CURLOPT_SSLVERSION);

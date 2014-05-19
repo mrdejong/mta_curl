@@ -12,6 +12,10 @@ CCurlCollection::~CCurlCollection(void)
 
 CCurlEasy* CCurlCollection::CreateEasy(void)
 {
+	CCurlEasy* easy = new CCurlEasy();
+
+	m_pCurlEasy.push_back(easy);
+
 	return NULL;
 }
 
