@@ -13,6 +13,7 @@
 
 ILuaModuleManager10 *pModuleManager = NULL;
 Mtacurls* mtacurls = NULL;
+CCurlCollection* curlCollection = NULL;
 
 // Initialisation function (module entrypoint)
 MTAEXPORT bool InitModule ( ILuaModuleManager10 *pManager, char *szModuleName, char *szAuthor, float *fVersion )
@@ -25,6 +26,7 @@ MTAEXPORT bool InitModule ( ILuaModuleManager10 *pManager, char *szModuleName, c
     (*fVersion) = MODULE_VERSION;
 
 	mtacurls = new Mtacurls();
+	curlCollection = new CCurlCollection();
 
     return true;
 }

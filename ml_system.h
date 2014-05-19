@@ -26,7 +26,7 @@
 // Function for making sure a pointer has a value before deleting it; possibly prevents crashes
 #define SAFE_DELETE(p) { if (p) { delete (p); (p) = NULL; } }
 
-#define MODULE_NAME         "Curl module"
+#define MODULE_NAME         "cURL module"
 #define MODULE_AUTHOR       "Alexander de Jong (AKA mrdejong)"
 #define MODULE_VERSION      1.3f
 #define MODULE_DEV			1
@@ -42,6 +42,7 @@
 
 #include "Common.h"
 #include "Mtacurls.h"
+#include "CurlCollection.h"
 #include "CFunctions.h"
 #include "include/ILuaModuleManager.h"
 

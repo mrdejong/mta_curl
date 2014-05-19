@@ -17,6 +17,13 @@ public:
 	CCurlEasy*			CreateEasy( void );
 	CCurlShare*			CreateShare( void );
 
+	void				DeleteEasy(CCurlEasy *pointer);
+	void				DeleteShare(CCurlShare *pointer);
+
+	void				DeleteAll();
+
+	void				DoPulse();
+
 
 private:
 	vector<CCurlEasy*> m_pCurlEasy;
