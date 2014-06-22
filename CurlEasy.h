@@ -31,6 +31,6 @@ private:
 
 	string buffer;
 
-	bool bAwaitingDestruction;
+	bool bAwaitingDestruction = false;
 };
 

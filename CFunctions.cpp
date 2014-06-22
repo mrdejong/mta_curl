@@ -55,7 +55,9 @@ int CFunctions::curl_close( lua_State* luaVM )
 			CCurlEasy* pointer = curlCollection->GetEasy(lua_touserdata(luaVM, 1));
 			if (pointer != NULL)
 			{
+				curl_easy_cleanup(pointer->getPointer());
 				pointer->MakeAwaitDestruction();
+				pr("Closing curl");
 
 				lua_pushboolean(luaVM, true);
 				return 1;

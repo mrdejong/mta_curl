@@ -106,5 +106,7 @@ void CCurlCollection::DoPulseEasy()
 		{
 			pointer->DoPulse();
 		}
+
+		i++;
 	}
 }
