@@ -11,7 +11,7 @@ class CCurlShare;
 class CCurlCollection
 {
 public:
-						CCurlCollection(void);
+						CCurlCollection(lua_State *L);
 						~CCurlCollection(void);
 
 	CCurlEasy*			CreateEasy( void );
@@ -21,13 +21,19 @@ public:
 	void				DeleteShare(CCurlShare *pointer);
 
 	void				DeleteAll();
+	void				DeleteAllEasy();
 
 	void				DoPulse();
+	void				DoPulseEasy();
 
+private:
+	void				OnPulseDeleteEasy();
 
 private:
 	vector<CCurlEasy*> m_pCurlEasy;
 	vector<CCurlShare*> m_pCurlShare;
+
+	lua_State *lua;
 };
 
 #endif
