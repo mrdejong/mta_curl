@@ -21,6 +21,26 @@ void CCurlEasy::DoPulse()
 
 }
 
+size_t CCurlEasy::WriteMemoryCallback(char *contents, size_t size, size_t nmemb)
+{
+	int r = 0;
+
+	buffer.append(contents, size*nmemb);
+	r = size*nmemb;
+
+	return r;
+}
+
+void CCurlEasy::cleanMemory()
+{
+	buffer.clear();
+}
+
+const char* CCurlEasy::getResult()
+{
+	return buffer.c_str();
+}
+
 CCurlEasy::~CCurlEasy(void)
 {
 	curl_easy_cleanup(pCurl);

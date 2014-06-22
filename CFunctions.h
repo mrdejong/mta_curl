@@ -15,12 +15,9 @@ class CFunctions;
 #define __CFUNCTIONS_H
 
 #include "ml_system.h"
-#include "Mtacurl.h"
 
 #include "include/ILuaModuleManager.h"
 extern ILuaModuleManager10 *pModuleManager;
-
-#include "Mtacurls.h"
 
 #include <curl\curl.h>
 
@@ -30,8 +27,6 @@ extern ILuaModuleManager10 *pModuleManager;
 #define LUACURL_CODEP_UPVALUE(L, INDEX) ((CURLcode *) lua_touserdata(L, lua_upvalueindex(INDEX)))
 
 #define TRANSLATE_STRING_CURLOPTION(S) #S
-
-class Mtacurl;
 
 class CFunctions
 {

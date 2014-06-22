@@ -41,7 +41,6 @@
 #include <valarray>
 
 #include "Common.h"
-#include "Mtacurls.h"
 #include "CurlCollection.h"
 #include "CFunctions.h"
 #include "include/ILuaModuleManager.h"

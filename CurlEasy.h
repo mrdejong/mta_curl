@@ -13,20 +13,23 @@ public:
 
 	CURL* getPointer(void);
 	void* getUserData();
-	
-	CURLcode setoptBool(CURLoption option, bool val);
-	CURLcode setoptNumber(CURLoption option, int val);
-	CURLcode setoptString(CURLoption option, const char* val);
 
 	bool	IsAwaitingDestruction(void) { return bAwaitingDestruction; };
 	void	MakeAwaitDestruction(void) { bAwaitingDestruction = true; };
 	void*	GetUserData(void) { return pUserData; };
+
+	size_t WriteMemoryCallback(char *contents, size_t size, size_t nmemb);
+	const char* getResult();
+
+	void	cleanMemory();
 
 	void	DoPulse();
 
 private:
 	CURL* pCurl;
 	void* pUserData;
+
+	string buffer;
 
 	bool bAwaitingDestruction;
 };

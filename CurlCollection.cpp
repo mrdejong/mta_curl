@@ -4,11 +4,14 @@
 CCurlCollection::CCurlCollection(lua_State *L)
 {
 	lua = L;
+	curl_global_init(CURL_GLOBAL_ALL);
 }
 
 
 CCurlCollection::~CCurlCollection(void)
 {
+	DeleteAll();
+	curl_global_cleanup();
 }
 
 CCurlEasy* CCurlCollection::CreateEasy(void)
@@ -17,11 +20,19 @@ CCurlEasy* CCurlCollection::CreateEasy(void)
 
 	m_pCurlEasy.push_back(easy);
 
-	return NULL;
+	return easy;
 }
 
 CCurlShare* CCurlCollection::CreateShare(void)
 {
+	return NULL;
+}
+
+CCurlEasy* CCurlCollection::GetEasy(void* udata)
+{
+	for (vector<CCurlEasy*>::iterator iter = m_pCurlEasy.begin(); iter != m_pCurlEasy.end(); ++iter)
+		if ((*iter)->GetUserData() == udata)
+			return *iter;
 	return NULL;
 }
 

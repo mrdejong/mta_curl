@@ -12,7 +12,6 @@
 #include "ml_system.h"
 
 ILuaModuleManager10 *pModuleManager = NULL;
-Mtacurls* mtacurls = NULL;
 CCurlCollection* curlCollection = NULL;
 
 // Initialisation function (module entrypoint)
@@ -24,9 +23,7 @@ MTAEXPORT bool InitModule ( ILuaModuleManager10 *pManager, char *szModuleName, c
     strncpy ( szModuleName, MODULE_NAME, MAX_INFO_LENGTH );
     strncpy ( szAuthor, MODULE_AUTHOR, MAX_INFO_LENGTH );
     (*fVersion) = MODULE_VERSION;
-
-	mtacurls = new Mtacurls();
-
+	
     return true;
 }
 
@@ -59,15 +56,14 @@ MTAEXPORT void RegisterFunctions ( lua_State * luaVM )
 
 MTAEXPORT bool DoPulse ( void )
 {
-	mtacurls->DoPulse();
-	curlCollection->DoPulse();
+	if (curlCollection != NULL)
+		curlCollection->DoPulse();
     return true;
 }
 
 MTAEXPORT bool ShutdownModule ( void )
 {
-	delete mtacurls;
-	delete curlCollection;
+	SAFE_DELETE(curlCollection);
     return true;
 }
 

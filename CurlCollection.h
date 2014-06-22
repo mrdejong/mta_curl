@@ -17,6 +17,8 @@ public:
 	CCurlEasy*			CreateEasy( void );
 	CCurlShare*			CreateShare( void );
 
+	CCurlEasy*			GetEasy(void* udata);
+
 	void				DeleteEasy(CCurlEasy *pointer);
 	void				DeleteShare(CCurlShare *pointer);
 
