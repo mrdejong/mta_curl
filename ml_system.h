@@ -28,7 +28,7 @@
 
 #define MODULE_NAME         "cURL module"
 #define MODULE_AUTHOR       "Alexander de Jong (AKA mrdejong)"
-#define MODULE_VERSION      1.3f
+#define MODULE_VERSION      1.4f
 #define MODULE_DEV			1
 
 #ifdef WIN32
