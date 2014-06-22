@@ -26,7 +26,6 @@ MTAEXPORT bool InitModule ( ILuaModuleManager10 *pManager, char *szModuleName, c
     (*fVersion) = MODULE_VERSION;
 
 	mtacurls = new Mtacurls();
-	curlCollection = new CCurlCollection();
 
     return true;
 }
@@ -35,18 +34,8 @@ MTAEXPORT void RegisterFunctions ( lua_State * luaVM )
 {
     if ( pModuleManager && luaVM )
     {
+		curlCollection = new CCurlCollection(luaVM);
 		CFunctions::saveLuaData(luaVM);
-
-		// Old style, this will get deleted in 1.4
-		pModuleManager->RegisterFunction ( luaVM, "curl_init", CFunctions::curl_init );
-		pModuleManager->RegisterFunction ( luaVM, "curl_close", CFunctions::curl_close );
-		pModuleManager->RegisterFunction ( luaVM, "curl_setopt", CFunctions::curl_setopt );
-		pModuleManager->RegisterFunction ( luaVM, "curl_pause", CFunctions::curl_pause );
-		pModuleManager->RegisterFunction ( luaVM, "curl_cleanup", CFunctions::curl_cleanup );
-		pModuleManager->RegisterFunction ( luaVM, "curl_escape", CFunctions::curl_escape ); // Deprecate?
-		pModuleManager->RegisterFunction ( luaVM, "curl_perform", CFunctions::curl_perform );
-		pModuleManager->RegisterFunction ( luaVM, "curl_strerror", CFunctions::curl_strerror );
-		pModuleManager->RegisterFunction ( luaVM, "curl_version", CFunctions::lua_curl_version );
 
 		// Register the new style
 		pModuleManager->RegisterFunction ( luaVM, "curlInit", CFunctions::curl_init );
@@ -71,12 +60,14 @@ MTAEXPORT void RegisterFunctions ( lua_State * luaVM )
 MTAEXPORT bool DoPulse ( void )
 {
 	mtacurls->DoPulse();
+	curlCollection->DoPulse();
     return true;
 }
 
 MTAEXPORT bool ShutdownModule ( void )
 {
 	delete mtacurls;
+	delete curlCollection;
     return true;
 }
 
