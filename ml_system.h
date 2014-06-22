@@ -29,7 +29,7 @@
 #define MODULE_NAME         "cURL module"
 #define MODULE_AUTHOR       "Alexander de Jong (AKA mrdejong)"
 #define MODULE_VERSION      1.4f
-#define MODULE_DEV			1
+#define MODULE_DEV			0
 
 #ifdef WIN32
     #define WIN32_MEAN_AND_LEAN
