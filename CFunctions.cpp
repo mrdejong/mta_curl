@@ -14,30 +14,28 @@
 
 lua_State* gLuaVM;
 extern Mtacurls* mtacurls;
+extern CCurlCollection* curlCollection;
 
 
 int CFunctions::curl_init( lua_State *luaVM )
 {
 	if(luaVM)
 	{
+		CCurlEasy* pointer = curlCollection->CreateEasy();
+
+		if (!pointer)
+		{
+			lua_pushnil(luaVM);
+			return 1;
+		}
+
 		if( lua_type( luaVM, 1 ) == LUA_TSTRING )
 		{
+			curl_easy_setopt(pointer->getPointer(), CURLOPT_URL, lua_tostring(luaVM, 1));
+		}
 
-			Mtacurl* pMtacurl = mtacurls->Create( luaVM, lua_tostring(luaVM, 1) );
-			if( pMtacurl )
-			{
-				lua_pushlightuserdata( luaVM, pMtacurl->GetUserData());
-				return 1;
-			}
-		}
-		else {
-			Mtacurl* pMtacurl = mtacurls->Create( luaVM, NULL );
-			if( pMtacurl )
-			{
-				lua_pushlightuserdata(luaVM, pMtacurl->GetUserData());
-				return 1;
-			}
-		}
+		lua_pushlightuserdata(luaVM, pointer->GetUserData());
+		return 1;
 	}
 
 	lua_pushboolean( luaVM, false );
