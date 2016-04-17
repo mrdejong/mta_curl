@@ -17,7 +17,7 @@ curl extention class
 
 using namespace std;
 
-#include <curl\curl.h>
+#include <curl/curl.h>
 
 class Mtacurl
 {

@@ -19,7 +19,7 @@ class CFunctions;
 #include "include/ILuaModuleManager.h"
 extern ILuaModuleManager10 *pModuleManager;
 
-#include <curl\curl.h>
+#include <curl/curl.h>
 
 #define luaL_checktable(L, n) luaL_checktype(L, n, LUA_TTABLE)
 

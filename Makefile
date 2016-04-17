@@ -1,17 +1,15 @@
 #### Start of system configuration section ####
 
-# use gcc or gcc-3.3
-
-CC = gcc
-LD = gcc
+CC = g++
+LD = g++
 PROG = ml_curl.so
 ILOC = ../server/mods/deathmatch/modules/ml_curl.so
-CXX = gcc
-CPP = gcc
+CXX = g++
+CPP = g++
 
 # Compiler flags
 # NOTE: add -g for debug, remove for release!
-CPPFLAGS = -MD -Wall -I./
+CPPFLAGS = -fPIC -O2 -Wall -I./ -I/usr/include
 LDFLAGS = -fPIC -shared -Wl,-soname,$(PROG).1,-R./
 LIBS = -lpthread -lstdc++ -L./lib -llua -lcurl
 
@@ -37,6 +35,7 @@ install :
 
 clean :
 	@rm *.o
+	@rm extra/*.o
 	@rm $(PROG)
 	@rm $(ILOC)
 
