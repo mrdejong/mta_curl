@@ -1,5 +1,5 @@
 #include "Mtacurls.h"
-#include <curl\curl.h>
+#include <curl/curl.h>
 
 /**
 	Initialize the class.
