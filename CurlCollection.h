@@ -2,7 +2,7 @@
 #define __CCURLCOLLECTION_H
 
 #include <string>
-#include "ml_system.h"
+#include "ml_curl.h"
 #include "CurlEasy.h"
 #include "CurlShare.h"
 
