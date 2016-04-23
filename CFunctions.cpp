@@ -88,18 +88,32 @@ int CFunctions::curl_setopt( lua_State* luaVM )
 					case LUA_TBOOLEAN:
 						// call boolean setopt
 						code = curl_easy_setopt(pointer->getPointer(), (CURLoption&)option, lua_toboolean(luaVM, 3));
-					break;
+						break;
 
 					case LUA_TNUMBER:
 						// call number setopt
 						code = curl_easy_setopt(pointer->getPointer(), (CURLoption&)option, lua_tonumber(luaVM, 3));
-					break;
+						break;
 
 					case LUA_TSTRING:
 						// call string setopt
 						code = curl_easy_setopt(pointer->getPointer(), (CURLoption&)option, lua_tostring(luaVM, 3));
-					break;
+						break;
 
+					case LUA_TTABLE:
+						struct curl_slist *optionList = NULL;
+
+						lua_pushnil(luaVM);
+						while (lua_next(luaVM, 3) != 0)
+						{
+							if (lua_type(luaVM, -1) == LUA_TSTRING) {
+								optionList = curl_slist_append(optionList, lua_tostring(luaVM, -1));
+							}
+							lua_pop(luaVM, 1);
+						}
+
+						code = curl_easy_setopt(pointer->getPointer(), (CURLoption&)option, optionList);
+						break;
 				}
 
 				if( code )
@@ -111,6 +125,7 @@ int CFunctions::curl_setopt( lua_State* luaVM )
 			}
 		}
 	}
+
 	lua_pushboolean(luaVM, false);
 	return 1;
 }
@@ -158,7 +173,7 @@ int CFunctions::curl_escape( lua_State* luaVM )
 		}
 	}
 
-	lua_pushnil( luaVM );
+	lua_pushboolean( luaVM, false );
 	return 1;
 }
 
