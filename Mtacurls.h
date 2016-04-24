@@ -2,7 +2,7 @@
 #define __MTA_CURL_H
 
 #include <string>
-#include "ml_system.h"
+#include "ml_curl.h"
 #include "Mtacurl.h"
 
 class Mtacurl;

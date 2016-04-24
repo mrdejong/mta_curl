@@ -14,7 +14,7 @@ class CFunctions;
 #ifndef __CFUNCTIONS_H
 #define __CFUNCTIONS_H
 
-#include "ml_system.h"
+#include "ml_curl.h"
 
 #include "include/ILuaModuleManager.h"
 extern ILuaModuleManager10 *pModuleManager;
