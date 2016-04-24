@@ -192,8 +192,6 @@ int CFunctions::curl_perform( lua_State* luaVM )
 
 				CURLcode code = curl_easy_perform(pointer->getPointer());
 
-				curl_easy_cleanup(pointer->getPointer());
-
 				if (code != CURLE_OK)
 				{
 					lua_pushlightuserdata(luaVM, (void*)code);
