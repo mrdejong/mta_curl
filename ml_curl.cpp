@@ -23,7 +23,7 @@ MTAEXPORT bool InitModule ( ILuaModuleManager10 *pManager, char *szModuleName, c
     strncpy ( szModuleName, MODULE_NAME, MAX_INFO_LENGTH );
     strncpy ( szAuthor, MODULE_AUTHOR, MAX_INFO_LENGTH );
     (*fVersion) = MODULE_VERSION;
-	
+
     return true;
 }
 
@@ -43,13 +43,13 @@ MTAEXPORT void RegisterFunctions ( lua_State * luaVM )
 		pModuleManager->RegisterFunction ( luaVM, "curlEscape", CFunctions::curl_escape ); // Deprecate?
 		pModuleManager->RegisterFunction ( luaVM, "curlPerform", CFunctions::curl_perform );
 		pModuleManager->RegisterFunction ( luaVM, "curlStrerror", CFunctions::curl_strerror );
-		pModuleManager->RegisterFunction ( luaVM, "curlVersion", CFunctions::lua_curl_version );		
+		pModuleManager->RegisterFunction ( luaVM, "curlVersion", CFunctions::lua_curl_version );
 
 		RegisterCurlOptions(luaVM);
 		RegisterCurlAuths(luaVM);
 		RegisterCurlInfos(luaVM);
 		RegisterCurlCodes(luaVM);
-		RegisterCurlGlobals(luaVM);		
+		RegisterCurlGlobals(luaVM);
     }
 }
 
@@ -79,7 +79,7 @@ void RegisterCurlGlobals( lua_State * luaVM )
 	CFunctions::registerLuaGlobal(luaVM, "CURLCLOSEPOLICY_LEAST_TRAFFIC", CURLCLOSEPOLICY_LEAST_TRAFFIC);
 	CFunctions::registerLuaGlobal(luaVM, "CURLCLOSEPOLICY_SLOWEST", CURLCLOSEPOLICY_SLOWEST);
 	CFunctions::registerLuaGlobal(luaVM, "CURLCLOSEPOLICY_CALLBACK", CURLCLOSEPOLICY_CALLBACK);
-	CFunctions::registerLuaGlobal(luaVM, "CURLCLOSEPOLICY_OLDEST", CURLCLOSEPOLICY_OLDEST);*/	
+	CFunctions::registerLuaGlobal(luaVM, "CURLCLOSEPOLICY_OLDEST", CURLCLOSEPOLICY_OLDEST);*/
 
 	// curl timecond variables -- leave later version
 	/*CFunctions::registerLuaGlobal(luaVM, "CURL_TIMECOND_IFMODSINCE", CURL_TIMECOND_IFMODSINCE);
@@ -106,6 +106,10 @@ void RegisterCurlGlobals( lua_State * luaVM )
 	CFunctions::registerLuaGlobal(luaVM, "CURL_HTTP_VERSION_NONE", (void*)CURL_HTTP_VERSION_NONE);
 	CFunctions::registerLuaGlobal(luaVM, "CURL_HTTP_VERSION_1_0", (void*)CURL_HTTP_VERSION_1_0);
 	CFunctions::registerLuaGlobal(luaVM, "CURL_HTTP_VERSION_1_1", (void*)CURL_HTTP_VERSION_1_1);
+
+	#if defined(CURL_HTTP_VERSION_2_0)
+		CFunctions::registerLuaGlobal(luaVM, "CURL_HTTP_VERSION_2_0", (void*)CURL_HTTP_VERSION_2_0);
+	#endif
 
 	// Curl M variables (multi, not implemented yet. Dont publish these variables. It wont work.)
 	/*CFunctions::createCurlGlobal(luaVM, "CURLM_CALL_MULTI_PERFORM", CURLM_CALL_MULTI_PERFORM);
@@ -250,6 +254,7 @@ void RegisterCurlOptions( lua_State * luaVM )
 	CFunctions::registerLuaGlobal(luaVM, "CURLOPT_FTPLISTONLY", (void*)CURLOPT_FTPLISTONLY);
 	CFunctions::registerLuaGlobal(luaVM, "CURLOPT_HEADER", (void*)CURLOPT_HEADER);
 	//CFunctions::createCurlGlobal(luaVM, "CURLINFO_HEADER_OUT", (void*)CURLINFO_HEADER_OUT);
+	CFunctions::registerLuaGlobal(luaVM, "CURLOPT_HTTPHEADER", (void*)CURLOPT_HTTPHEADER);
 	CFunctions::registerLuaGlobal(luaVM, "CURLOPT_HTTPGET", (void*)CURLOPT_HTTPGET);
 	CFunctions::registerLuaGlobal(luaVM, "CURLOPT_HTTPPROXYTUNNEL", (void*)CURLOPT_HTTPPROXYTUNNEL);
 	CFunctions::registerLuaGlobal(luaVM, "CURLOPT_NETRC", (void*)CURLOPT_NETRC);
