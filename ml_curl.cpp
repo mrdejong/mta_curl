@@ -63,6 +63,7 @@ MTAEXPORT bool DoPulse ( void )
 
 MTAEXPORT bool ShutdownModule ( void )
 {
+	curl_global_cleanup();
 	SAFE_DELETE(curlCollection);
     return true;
 }
